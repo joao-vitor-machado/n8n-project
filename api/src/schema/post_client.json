@@ -1,0 +1,32 @@
+{
+    "title": "POST client",
+    "type": "object",
+    "required": ["name", "document_number"],
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": ".*\\S.*"
+        },
+        "document_number": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 18,
+            "pattern": ".*\\S.*"
+        },
+        "client_key": {
+            "oneOf": [
+                {"type": "null"},
+                {"type": "string", "maxLength": 0},
+                {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 36,
+                    "pattern": ".*\\S.*"
+                }
+            ]
+        }
+    },
+    "additionalProperties": true
+}

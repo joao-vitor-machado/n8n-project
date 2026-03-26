@@ -4,7 +4,7 @@ from decimal import Decimal
 from sqlalchemy import Column, Date, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 
-from database import Base
+from src.database import Base
 
 
 class ConsumptionReading(Base):

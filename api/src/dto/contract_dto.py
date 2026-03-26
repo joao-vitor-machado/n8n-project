@@ -1,5 +1,6 @@
-from models import Contract
-from client_dto import ClientDTO
+from src.models import Contract
+
+from .client_dto import ClientDTO
 
 class ContractDTO:
     @staticmethod

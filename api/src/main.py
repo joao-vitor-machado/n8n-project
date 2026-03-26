@@ -1,7 +1,7 @@
 import falcon
 
-from resources.clients import ClientCollectionResource
-from resources.health import HealthResource
+from src.resources.clients import ClientCollectionResource
+from src.resources.health import HealthResource
 
 
 def create_app() -> falcon.App:
