@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import Boolean, Date, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.database import Base
+from database import Base
 
 
 class Contract(Base):

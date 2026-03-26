@@ -4,7 +4,7 @@ from falcon import testing
 
 @pytest.fixture
 def app():
-    from src.main import create_app
+    from main import create_app
 
     return create_app()
 

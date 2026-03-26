@@ -23,14 +23,14 @@ def _session_scope_fail():
 
 
 def test_get_health_ok(client, monkeypatch):
-    monkeypatch.setattr("src.resources.health.session_scope", _session_scope_ok)
+    monkeypatch.setattr("resources.health.session_scope", _session_scope_ok)
     result = client.simulate_get("/health")
     assert result.status == HTTP_200
     assert result.json == {"status": "ok", "database": "up"}
 
 
 def test_get_health_degraded_when_db_fails(client, monkeypatch):
-    monkeypatch.setattr("src.resources.health.session_scope", _session_scope_fail)
+    monkeypatch.setattr("resources.health.session_scope", _session_scope_fail)
     result = client.simulate_get("/health")
     assert result.status == HTTP_200
     assert result.json == {"status": "degraded", "database": "down"}

@@ -1,4 +1,4 @@
-from src.models import Client
+from models import Client
 
 class ClientDTO:
     @staticmethod

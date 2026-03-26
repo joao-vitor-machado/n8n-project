@@ -1,0 +1,29 @@
+{
+    "title": "POST consumption reading",
+    "type": "object",
+    "required": ["reading_date", "reading_value"],
+    "properties": {
+        "reading_date": {
+            "type": "string",
+            "format": "date"
+        },
+        "reading_value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99999999.99
+        },
+        "reading_key": {
+            "oneOf": [
+                { "type": "null" },
+                { "type": "string", "maxLength": 0 },
+                {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 36,
+                    "pattern": ".*\\S.*"
+                }
+            ]
+        }
+    },
+    "additionalProperties": true
+}

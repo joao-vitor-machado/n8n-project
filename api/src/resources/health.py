@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from src.database import session_scope
+from database import session_scope
 
 
 def check_database() -> bool:

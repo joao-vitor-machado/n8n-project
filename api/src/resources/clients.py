@@ -2,10 +2,10 @@ import falcon
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
-from src.controller import ClientController
-from src.database import session_scope
-from src.dto import ClientDTO
-from src.models import Client
+from controller import ClientController
+from database import session_scope
+from dto import ClientDTO
+from models import Client
 
 
 class ClientCollectionResource:
@@ -35,5 +35,5 @@ class ClientCollectionResource:
                 description="A client with this client_key or document_number already exists.",
             )
         resp.status = falcon.HTTP_201
-        resp.location = f"/v1/clients/{client.client_key}"
+        resp.location = f"/v1/client/{client.client_key}"
         resp.media = ClientDTO.client_to_dict(client)

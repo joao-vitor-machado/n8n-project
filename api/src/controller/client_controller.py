@@ -3,8 +3,8 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
-from src.models import Client
-from src.schema.schema_validator import validate_payload
+from models import Client
+from schema.schema_validator import validate_payload
 
 
 class ClientController:

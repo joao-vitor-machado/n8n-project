@@ -3,7 +3,6 @@ import os
 
 
 def zip_files(list_of_files: list[str]) -> str:
-    # Create the ZIP file and write files into it
     with zipfile.ZipFile("output.zip", mode="w") as zipf:
         for file in list_of_files:
             zipf.write(file)

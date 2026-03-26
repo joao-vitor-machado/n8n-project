@@ -19,9 +19,9 @@ def test_get_clients_empty_list(client, monkeypatch):
     scalars_result = MagicMock()
     scalars_result.all.return_value = []
     mock_session.scalars.return_value = scalars_result
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
-    result = client.simulate_get("/v1/clients")
+    result = client.simulate_get("/v1/client")
 
     assert result.status == HTTP_200
     assert result.json == {"items": []}
@@ -36,9 +36,9 @@ def test_get_clients_returns_items(client, monkeypatch):
     scalars_result = MagicMock()
     scalars_result.all.return_value = rows
     mock_session.scalars.return_value = scalars_result
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
-    result = client.simulate_get("/v1/clients")
+    result = client.simulate_get("/v1/client")
 
     assert result.status == HTTP_200
     assert result.json == {
@@ -51,10 +51,10 @@ def test_get_clients_returns_items(client, monkeypatch):
 
 def test_post_clients_validation_error_missing_name(client, monkeypatch):
     mock_session = MagicMock()
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
     result = client.simulate_post(
-        "/v1/clients",
+        "/v1/client",
         json={"document_number": "12345678901234"},
     )
 
@@ -64,10 +64,10 @@ def test_post_clients_validation_error_missing_name(client, monkeypatch):
 
 def test_post_clients_validation_error_document_number_too_long(client, monkeypatch):
     mock_session = MagicMock()
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
     result = client.simulate_post(
-        "/v1/clients",
+        "/v1/client",
         json={"name": "Valid", "document_number": "x" * 19},
     )
 
@@ -76,10 +76,10 @@ def test_post_clients_validation_error_document_number_too_long(client, monkeypa
 
 def test_post_clients_invalid_body_not_object(client, monkeypatch):
     mock_session = MagicMock()
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
     result = client.simulate_post(
-        "/v1/clients",
+        "/v1/client",
         body="[]",
         headers={"Content-Type": "application/json"},
     )
@@ -89,10 +89,10 @@ def test_post_clients_invalid_body_not_object(client, monkeypatch):
 
 def test_post_clients_created(client, monkeypatch):
     mock_session = MagicMock()
-    monkeypatch.setattr("src.resources.clients.session_scope", _scope_factory(mock_session))
+    monkeypatch.setattr("resources.clients.session_scope", _scope_factory(mock_session))
 
     result = client.simulate_post(
-        "/v1/clients",
+        "/v1/client",
         json={"name": "Acme Corp", "document_number": "12345678901234"},
     )
 
