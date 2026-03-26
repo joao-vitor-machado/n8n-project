@@ -10,6 +10,8 @@ services:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - ./postgres.sql:/docker-entrypoint-initdb.d/01.sql
+    networks:
+      - n8n-network
 
   n8n:
     container_name: n8n
@@ -28,3 +30,10 @@ services:
       - WEBHOOK_URL=http://${HOST}:${N8N_PORT}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - TZ=${GENERIC_TIMEZONE}
+
+    networks:
+      - n8n-network
+
+networks:
+  n8n-network:
+    driver: bridge
