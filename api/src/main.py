@@ -1,5 +1,6 @@
 import falcon
 
+from resources.analytics import ReadingOutliersResource
 from resources.clients import ClientCollectionResource
 from resources.contracts import ContractCollectionResource
 from resources.health import HealthResource
@@ -25,6 +26,7 @@ def create_app() -> falcon.App:
         "/v1/client/{client_key}/contract/{contract_key}/reading", 
         reading_resource
     )
+    app.add_route("/v1/analytics/reading-outliers", ReadingOutliersResource())
 
     return app
 
