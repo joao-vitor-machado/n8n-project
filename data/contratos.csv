@@ -1,0 +1,7 @@
+id,contract_key,client_id,start_date,active
+1,cb2a569b-15ab-4418-9006-13d81e51cd3d,1,2023-01-15,true
+2,d6eae82d-982c-4755-860b-7a305b878d13,1,2024-06-01,true
+3,6284ba51-8fad-454e-9de2-4b9a6c74bd9d,2,2022-11-20,true
+4,ead1a40a-5989-45f7-a7fe-baf3ee399f61,3,2021-03-10,true
+5,19b2e106-3cb9-4414-b1e5-4ebe919737f9,4,2020-09-01,false
+6,f9f59502-eaae-4f0c-be5c-95e015505091,5,2025-01-08,true

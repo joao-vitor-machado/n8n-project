@@ -1,0 +1,527 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Envio de Documentos",
+        "formDescription": "Adicione neste formulário o arquivo .zip com os arquivos necessários para excução do workflow",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Envie o Documento",
+              "fieldType": "file",
+              "acceptFileTypes": ".zip"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -256,
+        -112
+      ],
+      "id": "d8883905-0839-4d96-9233-cbc1b33cce29",
+      "name": "On form submission",
+      "webhookId": "ecc8f353-b5ad-4819-ac66-6105c1182078"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "Envie_o_Documento"
+      },
+      "type": "n8n-nodes-base.compression",
+      "typeVersion": 1.1,
+      "position": [
+        -48,
+        -112
+      ],
+      "id": "b7a91df7-90cd-4434-ade1-adb5358dee4b",
+      "name": "Compression"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "$binary",
+        "include": "allOtherFields",
+        "options": {
+          "includeBinary": true
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -112
+      ],
+      "id": "1bc26572-be28-4c7b-bdb3-03d83c512f87",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "={{ Object.keys($binary)[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        -112
+      ],
+      "id": "5cec0129-544c-4c30-82b4-972afa5606be",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ !!$json.client_key}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "c4355da5-81eb-4894-b3a2-99ecc80eba5b"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "b424d7db-d569-457a-81e7-3b1a896d4372",
+                    "leftValue": "={{ !!$json.contract_key}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "3164f0ea-5a34-4843-b17b-bcf1bb1028e9",
+                    "leftValue": "={{ !!$json.reading_key  }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        768,
+        -128
+      ],
+      "id": "ce3e28fb-afde-4e29-afee-bbd80edc18fb",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "=client",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_key": "={{ $json.client_key }}",
+            "id": "={{ $json.id }}",
+            "document_number": "={{ $json.document_number }}",
+            "name": "={{ $json.name }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "client_key",
+              "displayName": "client_key",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "document_number",
+              "displayName": "document_number",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        976,
+        -304
+      ],
+      "id": "82ee2224-c9ac-4092-ab2c-a5a318b95acc",
+      "name": "insert client",
+      "credentials": {
+        "postgres": {
+          "id": "EcGUPUxdm9kXkSwH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contract",
+          "mode": "list",
+          "cachedResultName": "contract"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "active": "={{ $json.active }}",
+            "id": "={{ $json.id }}",
+            "client_id": "={{ $json.client_id }}",
+            "contract_key": "={{ $json.contract_key }}",
+            "start_date": "={{ $json.start_date }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "contract_key",
+              "displayName": "contract_key",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "client_id",
+              "displayName": "client_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "start_date",
+              "displayName": "start_date",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "active",
+              "displayName": "active",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        976,
+        -96
+      ],
+      "id": "e554a052-7a90-4697-969a-455e01f7b22b",
+      "name": "insert contracts",
+      "credentials": {
+        "postgres": {
+          "id": "EcGUPUxdm9kXkSwH",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "consumption_reading",
+          "mode": "list",
+          "cachedResultName": "consumption_reading"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "contract_id": "={{ $json.contract_id }}",
+            "reading_value": "={{ $json.reading_value }}",
+            "reading_key": "={{ $json.reading_key }}",
+            "reading_date": "={{ $json.reading_date }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reading_key",
+              "displayName": "reading_key",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "contract_id",
+              "displayName": "contract_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reading_date",
+              "displayName": "reading_date",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reading_value",
+              "displayName": "reading_value",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        960,
+        144
+      ],
+      "id": "0354b48b-c703-4052-ac15-c3ececbe16c3",
+      "name": "insert readings",
+      "credentials": {
+        "postgres": {
+          "id": "EcGUPUxdm9kXkSwH",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Compression",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compression": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "insert client",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "insert contracts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "insert readings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insert client": {
+      "main": [
+        []
+      ]
+    },
+    "insert readings": {
+      "main": [
+        []
+      ]
+    },
+    "insert contracts": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a826e6f2-3f8d-4e18-a15b-a0ec614e8661",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9855f07ab47233c0c736bc97b3732f9488b16bfd0f7e8d005544ed698293c6c3"
+  },
+  "id": "DG5hPT8mmMTUrZgo",
+  "tags": []
+}
