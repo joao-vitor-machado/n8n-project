@@ -173,10 +173,6 @@ class ReadingController:
         *,
         as_of: date | None = None,
     ) -> dict[str, Any]:
-        """
-        Same window and outlier rule as analyze_client_reading_outliers: average of
-        all readings (active contracts only) vs this client's average in that window.
-        """
         if months < 1:
             raise ValueError("months must be at least 1")
 
