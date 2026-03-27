@@ -23,6 +23,41 @@ def _add_months(base: date, delta_months: int) -> date:
     return date(y, m, min(base.day, last))
 
 
+def _aggregate_readings_by_client(
+    session: Session, start: date, end: date
+) -> tuple[dict[str, dict[str, Any]], list[float]]:
+    stmt = (
+        select(
+            ConsumptionReading,
+            Contract.contract_key,
+            Client.client_key,
+            Client.name,
+        )
+        .join(Contract, ConsumptionReading.contract_id == Contract.id)
+        .join(Client, Contract.client_id == Client.id)
+        .where(
+            Contract.active.is_(True),
+            ConsumptionReading.reading_date >= start,
+            ConsumptionReading.reading_date <= end,
+        )
+        .order_by(Client.client_key, ConsumptionReading.reading_date)
+    )
+    rows = session.execute(stmt).all()
+
+    by_client: dict[str, dict[str, Any]] = {}
+    all_values: list[float] = []
+    for reading, contract_key, client_key, name in rows:
+        value = float(reading.reading_value)
+        all_values.append(value)
+        if client_key not in by_client:
+            by_client[client_key] = {
+                "name": name,
+                "items": [],
+            }
+        by_client[client_key]["items"].append((reading, contract_key, value))
+    return by_client, all_values
+
+
 class ReadingController:
     @staticmethod
     def _validate_create_payload(body: dict[str, Any]) -> tuple[str, str, date, Decimal]:
@@ -81,36 +116,7 @@ class ReadingController:
         end = as_of if as_of is not None else date.today()
         start = _add_months(end, -months)
 
-        stmt = (
-            select(
-                ConsumptionReading,
-                Contract.contract_key,
-                Client.client_key,
-                Client.name,
-            )
-            .join(Contract, ConsumptionReading.contract_id == Contract.id)
-            .join(Client, Contract.client_id == Client.id)
-            .where(
-                Contract.active.is_(True),
-                ConsumptionReading.reading_date >= start,
-                ConsumptionReading.reading_date <= end,
-            )
-            .order_by(Client.client_key, ConsumptionReading.reading_date)
-        )
-        rows = session.execute(stmt).all()
-
-        by_client: dict[str, dict[str, Any]] = {}
-        all_values: list[float] = []
-        for reading, contract_key, client_key, name in rows:
-            value = float(reading.reading_value)
-            if client_key not in by_client:
-                by_client[client_key] = {
-                    "name": name,
-                    "items": [],
-                }
-            by_client[client_key]["items"].append((reading, contract_key, value))
-            all_values.append(value)
-
+        by_client, all_values = _aggregate_readings_by_client(session, start, end)
         base_average = (sum(all_values) / len(all_values)) if all_values else None
 
         clients_out: list[dict[str, Any]] = []
@@ -157,4 +163,49 @@ class ReadingController:
             "outlier_count": len(outlier_clients),
             "outliers": outlier_clients,
             "clients": clients_out,
+        }
+
+    @staticmethod
+    def get_client_consumption_insight(
+        session: Session,
+        client_key: str,
+        months: int,
+        *,
+        as_of: date | None = None,
+    ) -> dict[str, Any]:
+        """
+        Same window and outlier rule as analyze_client_reading_outliers: average of
+        all readings (active contracts only) vs this client's average in that window.
+        """
+        if months < 1:
+            raise ValueError("months must be at least 1")
+
+        client = session.scalars(select(Client).where(Client.client_key == client_key)).first()
+        if client is None:
+            raise ValueError(f"Unknown client_key: {client_key!r}")
+
+        end = as_of if as_of is not None else date.today()
+        start = _add_months(end, -months)
+
+        by_client, all_values = _aggregate_readings_by_client(session, start, end)
+        base_average = (sum(all_values) / len(all_values)) if all_values else None
+
+        entry = by_client.get(client_key)
+        if entry is None:
+            client_average = None
+        else:
+            vals = [v for _, _, v in entry["items"]]
+            client_average = (sum(vals) / len(vals)) if vals else None
+
+        outlier = (
+            base_average is not None
+            and client_average is not None
+            and client_average > base_average
+        )
+
+        return {
+            "name": client.name,
+            "document_number": client.document_number,
+            "average_consumption": client_average,
+            "outlier": outlier,
         }

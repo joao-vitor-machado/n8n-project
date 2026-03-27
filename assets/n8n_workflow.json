@@ -4,43 +4,19 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "21893604-2479-4c33-a245-29db213bdba2",
+        "path": ":client-key",
+        "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1248,
-        688
+        -96,
+        880
       ],
-      "id": "92fd1cdd-a6cd-4e65-92aa-6e377cc45e9c",
+      "id": "fb125162-6875-43d1-bc61-42e17af4938d",
       "name": "Webhook",
       "webhookId": "21893604-2479-4c33-a245-29db213bdba2"
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "client",
-          "mode": "list",
-          "cachedResultName": "client"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -1040,
-        688
-      ],
-      "id": "83831276-25e5-4c1f-b6ad-ecdef089aadc",
-      "name": "Select rows from a table"
     },
     {
       "parameters": {
@@ -60,12 +36,12 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.5,
       "position": [
-        -1280,
-        1056
+        -64,
+        544
       ],
-      "id": "c6ceb0fd-0ee7-4c80-bfff-860825346d97",
+      "id": "539a4840-bf7c-4698-9a1f-ee579a80bce9",
       "name": "On form submission1",
-      "webhookId": "65ffd55d-6a91-437d-9940-12228c8f467b"
+      "webhookId": "6811594f-ce85-43f3-97ca-dc4579b84b44"
     },
     {
       "parameters": {
@@ -74,10 +50,10 @@
       "type": "n8n-nodes-base.compression",
       "typeVersion": 1.1,
       "position": [
-        -1072,
-        1056
+        144,
+        544
       ],
-      "id": "066ae41c-8932-4363-a51c-dee4b6bf2b8d",
+      "id": "ce4891bd-de00-4195-b818-6fb0b33f116d",
       "name": "Compression1"
     },
     {
@@ -91,10 +67,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -864,
-        1056
+        352,
+        544
       ],
-      "id": "a1b38e4c-b541-41aa-96a0-1ba000f24b91",
+      "id": "339cd147-2141-4989-b854-6623042d7091",
       "name": "Split Out1"
     },
     {
@@ -177,10 +153,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -592,
-        1040
+        624,
+        528
       ],
-      "id": "b666df7a-e195-489e-a700-16817c8aa43c",
+      "id": "b2848aaf-5c43-4cf2-9139-dbd6af2b3cd6",
       "name": "Switch1"
     },
     {
@@ -209,10 +185,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        80,
-        880
+        1296,
+        368
       ],
-      "id": "e49d60ee-4703-46de-86a0-d5b01dd38012",
+      "id": "8f544429-67ed-4309-8b89-162447823cf6",
       "name": "HTTP Request"
     },
     {
@@ -241,10 +217,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        80,
-        1072
+        1296,
+        560
       ],
-      "id": "88d7d9e3-0e3e-49a1-8393-bbdd24967d60",
+      "id": "49f60d91-3e03-45a4-aa4f-9931d143c34b",
       "name": "HTTP Request1"
     },
     {
@@ -273,10 +249,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        80,
-        1280
+        1296,
+        768
       ],
-      "id": "689a6196-1b2d-4ab0-872e-47a77f92d847",
+      "id": "2b17ae07-585f-4b96-8b17-0b1660a5bf48",
       "name": "HTTP Request2"
     },
     {
@@ -287,10 +263,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        -240,
-        880
+        976,
+        368
       ],
-      "id": "6a03e9e0-57b5-4f45-8e7b-dff3dc9d68c8",
+      "id": "6246bfa1-f11f-4ec6-ba8f-76b4f2efdeeb",
       "name": "Extract from Clients"
     },
     {
@@ -301,10 +277,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        -240,
-        1056
+        976,
+        544
       ],
-      "id": "dcef206e-590a-4328-b500-e765151249d3",
+      "id": "ab61590f-1ce8-44f8-a7d7-4f035e082d78",
       "name": "Extract from Contracts"
     },
     {
@@ -315,11 +291,201 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        -224,
-        1264
+        992,
+        752
       ],
-      "id": "eaa8d764-1050-4284-95a5-231251ab05a0",
+      "id": "ee039b74-c06d-49e5-93f8-8826b8d952e1",
       "name": "Extract from Readings"
+    },
+    {
+      "parameters": {
+        "url": "http://172.19.0.4:8000/v1/analytics/reading-outliers",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "months",
+              "value": "48"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        128,
+        1104
+      ],
+      "id": "9099dc2b-9634-44e4-89b6-65499249241e",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "=Using the data  {{ JSON.stringify($json.period) }},{{ JSON.stringify($json.outliers) }}, {{ JSON.stringify($json.base_average_consumption) }},{{ JSON.stringify($json.outlier_count) }}  output for me a plain html that contain a beautiful display of these summarized information so I can show the investors.\n\nYou are a specialized HTML generator. Return ONLY the raw HTML code. Do NOT include any introductory text, explanations, or Markdown code blocks (no ```html tags). Your response must start with <!DOCTYPE html> or <div> and end with the closing tag. No conversational filler.\n\nThe summary should be in pt-br language"
+            },
+            {
+              "role": "system",
+              "content": "base yourself in https://img.freepik.com/vetores-gratis/modelo-de-capa-de-relatorio-anual-gradiente_23-2147843073.jpg?semt=ais_hybrid&w=740&q=80 to create the template"
+            }
+          ]
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        384,
+        1104
+      ],
+      "id": "49bf0add-c998-400d-9c91-b27e6b6626d1",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "n6uqjqzpibhF2og3",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "html",
+        "binaryPropertyName": "=data",
+        "options": {
+          "encoding": "utf8",
+          "fileName": "index.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        1104
+      ],
+      "id": "3d59f0f1-bda8-44b6-baf1-6ccee180bd35",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://v2.convertapi.com/convert/html/to/pdf",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer yg8tTvXI5Ig6HbxFb4VcAPYfUlUCXfzD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "StoreFile",
+              "value": "true"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "File",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1328,
+        1104
+      ],
+      "id": "65b899e4-78fe-4953-a243-c03bd4953b3d",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "html": "{{ $json.output[0].content[0].text }}"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        1104
+      ],
+      "id": "60c197e6-a7d3-4bd6-91f9-bb2dac956464",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"name\": \"{{ $json.name }}\",\n  \"doucment_number\": \"{{ $json.document_number }}\",\n  \"avarage_consumption\": {{ $json.average_consumption }},\n  \"outlier\": {{ $json.outlier }}\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        336,
+        880
+      ],
+      "id": "cbb23383-8792-452c-97be-1b27df5e19af",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.19.0.4:8000/v1/client/{{ $json.params['client-key'] }}/consumption-insight",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "months",
+              "value": "48"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        112,
+        880
+      ],
+      "id": "c118e252-705e-42cb-9a97-3bf65b67c35e",
+      "name": "HTTP Request5"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "92837af7-da05-4d91-80cc-8f67c1e5882a",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        1104
+      ],
+      "id": "c83b6f2e-d696-48e2-80ce-330a7f1843ad",
+      "name": "Webhook1",
+      "webhookId": "92837af7-da05-4d91-80cc-8f67c1e5882a"
     }
   ],
   "pinData": {},
@@ -328,7 +494,7 @@
       "main": [
         [
           {
-            "node": "Select rows from a table",
+            "node": "HTTP Request5",
             "type": "main",
             "index": 0
           }
@@ -425,6 +591,72 @@
           }
         ]
       ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -432,10 +664,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "3abb7896-30a8-4387-9b00-c7bb8aaef46a",
+  "versionId": "f4fa9a91-6cce-4ab2-857e-8907bdd77c1e",
   "meta": {
-    "instanceId": "82724f3bc875552a965c9db03ccab2e93e55d113a2dc8b39c3757e0da18242c6"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ed09ed4b519b6f8538971de88b292408d1468b1afcffb7c65bfde7f6b5dce153"
   },
-  "id": "d5f2A9G3VCQVgLUR",
+  "id": "SiPlazhRODFZlZDB",
   "tags": []
 }

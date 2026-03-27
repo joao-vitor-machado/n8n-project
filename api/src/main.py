@@ -15,7 +15,10 @@ def create_app() -> falcon.App:
         "/v1/client", 
         client_resource
     )
-    
+    app.add_route(
+        "/v1/client/{client_key}/consumption-insight",
+        client_resource,
+    )
     contract_resource = ContractCollectionResource()
     app.add_route(
         "/v1/client/{client_key}/contract", 

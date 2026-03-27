@@ -12,4 +12,4 @@ def unzip_files(zip_file: str, extraction_path: str) -> list[str]:
         zip_ref.extractall(extraction_path)
 
 zip_files(["data/clientes.csv", "data/contratos.csv", "data/leituras.csv"])
-unzip_files("output.zip", "data_output")
+# unzip_files("output.zip", "data_output")

@@ -1,7 +1,7 @@
 __pycache__/
 
-data/
-
 data_output/
 
 output.zip
+
+.pytest_cache/
